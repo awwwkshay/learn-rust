@@ -10,7 +10,7 @@ From the repository root:
 
 ```sh
 cargo test -p inventory-ledger
-cargo run -p inventory-ledger -- inventory-ledger/sample.ledger
+cargo run -p inventory-ledger -- ./inventory-ledger/sample.ledger
 ```
 
 From inside `inventory-ledger/`:
