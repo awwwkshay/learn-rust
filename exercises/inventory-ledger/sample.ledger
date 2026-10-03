@@ -1,0 +1,5 @@
+RECEIVE bolts 8
+RECEIVE nuts 3
+SELL bolts 3
+RECEIVE washers 4
+SELL nuts 3
