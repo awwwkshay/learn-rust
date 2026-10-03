@@ -1,8 +1,7 @@
-[package]
-name = "learn-rust"
-version = "0.1.0"
-edition = "2024"
-
 [workspace]
-resolve = "3"
+resolver = "3"
 members = ["request-log-analyzer"]
+exclude = [
+    "exercises/request-log-analyzer",
+    "solutions/request-log-analyzer",
+]

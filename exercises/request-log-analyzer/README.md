@@ -1,17 +1,17 @@
 # Request log analyzer
 
-This is the active working copy of `exercises/request-log-analyzer/`. Both copies compile, but their tests fail at `todo!()` until you implement the behavior.
+This is the untouched starter. Use `prepare-rust-exercise` to make an active working copy at the repository root. The starter compiles, but its tests fail at `todo!()` until you implement the behavior.
 
 ## Start working
 
-From the repository root:
+From inside this directory, run:
 
 ```sh
-cargo test -p request-log-analyzer
-cargo run -p request-log-analyzer -- request-log-analyzer/sample.log
+cargo test
+cargo run -- sample.log
 ```
 
-Or from inside `request-log-analyzer/`, run `cargo test` and `cargo run -- sample.log`. Edit `request-log-analyzer/src/main.rs`; these commands reach `todo!()` until you implement it.
+When this exercise is prepared at the repository root, the working copy uses `cargo test -p request-log-analyzer` and `cargo run -p request-log-analyzer -- request-log-analyzer/sample.log` from the repository root.
 
 An on-call developer wants a quick summary of a web service's request log: traffic by HTTP status and the slowest request. Build a CLI that reads a log file and prints that summary.
 
@@ -41,7 +41,7 @@ This is one end-to-end tool; the functions separate the parts you can test while
 
 ## Expected output
 
-From the repository root, run `cargo run -p request-log-analyzer -- request-log-analyzer/sample.log` after completing the exercise. It should print:
+From inside the finished project directory, run `cargo run -- sample.log`. It should print:
 
 ```text
 Requests: 16
@@ -61,11 +61,11 @@ For an empty file, print `Requests: 0`, `Status counts:`, then `Slowest: none` o
 
 ## Success criteria
 
-From the repository root, run:
+From inside this directory, run:
 
 ```sh
-cargo test -p request-log-analyzer
-cargo run -p request-log-analyzer -- request-log-analyzer/sample.log
+cargo test
+cargo run -- sample.log
 ```
 
 The starter compiles but tests intentionally fail at the TODOs. Once complete, all unit tests should pass, and the sample output should match above. Also try a missing file, malformed input, and missing CLI argument; each should print an error and exit nonzero.

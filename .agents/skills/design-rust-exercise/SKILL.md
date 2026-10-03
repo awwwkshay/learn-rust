@@ -1,11 +1,11 @@
 ---
 name: design-rust-exercise
-description: Design or revise hands-on Rust learning projects in this repository when the user asks for a new exercise, a project challenge, or a better learning task. Keep the implementation for the learner unless they explicitly request a solution.
+description: Design or revise a hands-on Rust exercise in this repository and save its untouched starter under exercises/. Do not prepare the root working copy or archive a solution.
 ---
 
 # Design a Rust exercise
 
-Use the repository's `AGENTS.md` for coaching and file conventions. This skill adds a design check for project quality.
+Use the repository's `AGENTS.md` for coaching and file conventions. This skill creates only `exercises/<project>/`.
 
 ## Choose the project
 
@@ -16,15 +16,19 @@ Use the repository's `AGENTS.md` for coaching and file conventions. This skill a
 - Keep the core milestone achievable through incremental sessions. Put extra behavior in stretch goals.
 - Prefer the standard library unless a dependency teaches a concept needed for the task.
 
-## Scaffold without solving
+## Create the starter
 
-- Create a descriptively named Cargo project in its own directory. Its `README.md` should explain the scenario, requirements, success criteria, exact commands, optional stretch goals, and a representative input with the output the finished program should produce. If output is nondeterministic or its formatting is flexible, label the output as illustrative and state which parts must match.
-- Write each project's README test and run commands for execution from the repository root. For example, `request-log-analyzer/README.md` uses `cargo test -p request-log-analyzer` and `cargo run -p request-log-analyzer -- request-log-analyzer/sample.log`. Select the exercise package and use root-relative input paths in other projects too. Check that the documented commands work from the root.
-- Provide the types, function signatures, fixture data, and meaningful unit tests for core behavior, errors, and useful edge cases. Use `todo!()` for substantive behavior. Leave parsing, state updates, error handling, orchestration, and formatting for the learner where those are learning goals.
-- Make tests and the sample output agree with the README's required behavior. Assert exact output only when the format is specified; otherwise test required content or structure. Check that the scaffold compiles, and state clearly if tests intentionally fail at TODOs.
+- Create `exercises/<project>/` as a self-contained, unsolved Cargo crate. Do not create its root working copy or a solution archive in this skill.
+- Leave substantive behavior behind `todo!()` or equivalent scaffolding. Its README should explain the scenario, requirements, success criteria, optional stretch goals, representative input and expected output. If output is nondeterministic or flexible, label examples accordingly.
+- Keep the starter independent of the root workspace. An empty `[workspace]` section in its Cargo manifest is one way; `prepare-rust-exercise` removes it from the root working copy when adding that copy to the root workspace.
+- Document exact test and run commands from inside the crate using relative fixture paths, and explain that `prepare-rust-exercise` will make the root working copy. The crate must remain runnable after being archived in `solutions/`.
+- Provide types, function signatures, fixture data, and meaningful unit tests for core behavior, errors, and useful edge cases. Leave parsing, state updates, error handling, orchestration, and formatting for the learner where those are learning goals.
+- Make tests and sample output agree with the README. Assert exact output only when the format is specified. Check the starter compiles and note that tests intentionally fail at TODOs.
 - Briefly tell the learner why the project matters and which Rust concepts they will practice. Suggest a sensible implementation order without giving away the implementation.
 - If the exercise intentionally fails to compile, state the expected command and failure in the README and when presenting the task.
 
 ## Review before delivery
 
 Check that finishing the core task produces a usable tool or component, each requirement has a way to verify it, and the learner must make meaningful programming decisions. Remove incidental setup and dependencies that do not teach the chosen concepts.
+
+Commit only the exercise and directly necessary repository metadata after validation. Do not stage unrelated changes. Report the commit hash and how to invoke `prepare-rust-exercise` next.

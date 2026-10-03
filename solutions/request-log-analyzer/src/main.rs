@@ -17,27 +17,116 @@ struct Report {
 
 // Each log line has: METHOD PATH STATUS DURATION_MS
 fn parse_request(line: &str) -> Result<Request, String> {
-    todo!("parse and validate one request line")
+    let parts: Vec<&str> = line.split_whitespace().collect();
+
+    if parts.len() != 4 {
+        return Err(format!("expected 4 parts, got {}", parts.len()));
+    }
+
+    let method = parts[0].trim();
+    let path = parts[1].trim();
+    let status: u16 = parts[2]
+        .trim()
+        .parse()
+        .map_err(|_| format!("invalid status: {}", parts[2].trim()))?;
+    let duration_ms: u32 = parts[3]
+        .trim()
+        .parse()
+        .map_err(|_| format!("invalid duration: {}", parts[3].trim()))?;
+    Ok(Request {
+        method: method.into(),
+        path: path.into(),
+        status,
+        duration_ms,
+    })
 }
 
 fn parse_requests(contents: &str) -> Result<Vec<Request>, String> {
-    todo!("skip blank lines and include original line numbers in errors")
+    let request_lines = contents.split("\n");
+    let requests = request_lines
+        .enumerate()
+        .filter(|(_, line)| !line.trim().is_empty())
+        .map(|(index, line)| {
+            parse_request(line.trim()).map_err(|error| format!("line {}: {}", index + 1, error))
+        });
+    return requests.collect();
 }
 
 fn build_report(requests: &[Request]) -> Report {
-    todo!("count statuses and find the slowest request")
+    let total_reqs = requests.len();
+    let mut status_counts = BTreeMap::new();
+    let mut slowest: Option<Request> = None;
+
+    for request in requests {
+        *status_counts.entry(request.status).or_insert(0) += 1;
+
+        match slowest.as_ref() {
+            None => slowest = Some(request.clone()),
+            Some(current) if request.duration_ms > current.duration_ms => {
+                slowest = Some(request.clone());
+            }
+            Some(_) => {} // shorter or tied: keep the first
+        }
+    }
+
+    Report {
+        total: total_reqs,
+        status_counts,
+        slowest,
+    }
 }
 
 fn format_report(report: &Report) -> String {
-    todo!("produce the report shown in the README")
+    return format!(
+        "Requests: {}\nStatus counts:\n{}Slowest: {}",
+        report.total,
+        if !report.status_counts.is_empty() {
+            format!(
+                "{}\n",
+                report
+                    .status_counts
+                    .iter()
+                    .map(|(status, count)| format!("  {}: {}", status, count))
+                    .collect::<Vec<String>>()
+                    .join("\n")
+            )
+        } else {
+            "".into()
+        },
+        match &report.slowest {
+            Some(request) => format!(
+                "{} {} ({}, {} ms)",
+                request.method, request.path, request.status, request.duration_ms
+            ),
+            None => "none".into(),
+        }
+    );
 }
 
 fn run(path: &str) -> Result<String, String> {
-    todo!("read the file and return the formatted report")
+    let contents = std::fs::read_to_string(path)
+        .map_err(|e| format!("failed to read file {}: {}", path, e))?;
+    let requests = parse_requests(&contents)?;
+    let report = build_report(&requests);
+    Ok(format_report(&report))
 }
 
 fn main() {
-    todo!("accept one path, print the report, and exit nonzero on error")
+    // TODO: Read one file path from command-line arguments, call run,
+    // print the report on success, and print an error on failure.
+    let args: Vec<String> = std::env::args().collect();
+    if args.len() != 2 {
+        eprintln!("Usage: {} <request-log-file>", args[0]);
+        std::process::exit(1);
+    }
+    let path = &args[1];
+    match run(path) {
+        Ok(report) => println!("{}", report),
+        Err(error) => {
+            eprintln!("Error: {}", error);
+            std::process::exit(1);
+        }
+    }
 }
 
 #[cfg(test)]

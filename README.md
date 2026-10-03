@@ -1,9 +1,18 @@
 # Learn Rust
 
-Hands-on Rust projects based on features used in modern software. Each project has its own `README.md` with the problem, requirements, and commands to run.
+Hands-on Rust projects. `exercises/` holds untouched starters, a project at the repository root is the active working copy, and `solutions/` holds completed attempts.
 
-## Current project
+## Request log analyzer
 
-- [Request log analyzer](request-log-analyzer/README.md): build a command-line tool that parses web request logs and summarizes traffic and latency.
+- [Untouched exercise](exercises/request-log-analyzer/README.md)
+- [Active working copy](request-log-analyzer/README.md)
+- [Completed first attempt](solutions/request-log-analyzer/README.md)
 
-The starter code is intentionally incomplete so you can implement it yourself.
+From the repository root, test and run the active project:
+
+```sh
+cargo test -p request-log-analyzer
+cargo run -p request-log-analyzer -- request-log-analyzer/sample.log
+```
+
+The active copy is currently a starter with `todo!()` calls, so its tests intentionally fail until the exercise is completed.

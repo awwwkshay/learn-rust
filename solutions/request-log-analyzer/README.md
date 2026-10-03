@@ -1,21 +1,10 @@
 # Request log analyzer
 
-This is the active working copy of `exercises/request-log-analyzer/`. Both copies compile, but their tests fail at `todo!()` until you implement the behavior.
-
-## Start working
-
-From the repository root:
-
-```sh
-cargo test -p request-log-analyzer
-cargo run -p request-log-analyzer -- request-log-analyzer/sample.log
-```
-
-Or from inside `request-log-analyzer/`, run `cargo test` and `cargo run -- sample.log`. Edit `request-log-analyzer/src/main.rs`; these commands reach `todo!()` until you implement it.
+This is the completed first attempt. Start with `exercises/request-log-analyzer/` for the hands-on challenge.
 
 An on-call developer wants a quick summary of a web service's request log: traffic by HTTP status and the slowest request. Build a CLI that reads a log file and prints that summary.
 
-You will practice parsing, `Result` error propagation, structs, `Option`, `BTreeMap`, borrowing, file I/O, and command-line arguments. The starter deliberately contains `todo!()` calls; its tests compile but fail until you implement them.
+The project covers parsing, `Result` error propagation, structs, `Option`, `BTreeMap`, borrowing, file I/O, and command-line arguments.
 
 ## Input
 
@@ -41,7 +30,7 @@ This is one end-to-end tool; the functions separate the parts you can test while
 
 ## Expected output
 
-From the repository root, run `cargo run -p request-log-analyzer -- request-log-analyzer/sample.log` after completing the exercise. It should print:
+From the repository root, run `cargo run --manifest-path solutions/request-log-analyzer/Cargo.toml -- solutions/request-log-analyzer/sample.log`. It should print:
 
 ```text
 Requests: 16
@@ -64,11 +53,18 @@ For an empty file, print `Requests: 0`, `Status counts:`, then `Slowest: none` o
 From the repository root, run:
 
 ```sh
-cargo test -p request-log-analyzer
-cargo run -p request-log-analyzer -- request-log-analyzer/sample.log
+cargo test --manifest-path solutions/request-log-analyzer/Cargo.toml
+cargo run --manifest-path solutions/request-log-analyzer/Cargo.toml -- solutions/request-log-analyzer/sample.log
 ```
 
-The starter compiles but tests intentionally fail at the TODOs. Once complete, all unit tests should pass, and the sample output should match above. Also try a missing file, malformed input, and missing CLI argument; each should print an error and exit nonzero.
+From inside `solutions/request-log-analyzer/`, use:
+
+```sh
+cargo test
+cargo run -- sample.log
+```
+
+All unit tests should pass, and the sample output should match above. Also try a missing file, malformed input, and missing CLI argument; each should print an error and exit nonzero.
 
 ## Optional stretch goals
 
