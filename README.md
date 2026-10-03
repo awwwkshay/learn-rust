@@ -2,6 +2,26 @@
 
 Hands-on Rust projects. `exercises/` holds untouched starters, a project at the repository root is the active working copy while you solve it, and `solutions/` holds completed attempts.
 
+## Active exercise: inventory ledger
+
+Work in [inventory-ledger/](inventory-ledger/README.md). The [untouched starter](exercises/inventory-ledger/README.md) stays in `exercises/`.
+
+From the repository root:
+
+```sh
+cargo test -p inventory-ledger
+cargo run -p inventory-ledger -- inventory-ledger/sample.ledger
+```
+
+From inside `inventory-ledger/`:
+
+```sh
+cargo test
+cargo run -- sample.ledger
+```
+
+The TODOs make the starter tests and run fail until you implement them.
+
 ## Request log analyzer
 
 - [Untouched exercise](exercises/request-log-analyzer/README.md)
