@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["request-log-analyzer"]
+members = []
 exclude = [
     "exercises/request-log-analyzer",
     "solutions/request-log-analyzer",
