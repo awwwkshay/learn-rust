@@ -16,8 +16,8 @@ cargo run -p inventory-ledger -- inventory-ledger/sample.ledger
 From inside `inventory-ledger/`:
 
 ```sh
-cargo test
-cargo run -- sample.ledger
+cargo test -p inventory-ledger
+cargo run -p inventory-ledger -- sample.ledger
 ```
 
 The TODOs make the starter tests and run fail until you implement them.

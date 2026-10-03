@@ -32,7 +32,7 @@ The standard library is enough. This project practices enums, `Result`, mutable 
 From this directory, run:
 
 ```sh
-cargo run -- sample.ledger
+cargo run -p inventory-ledger -- sample.ledger
 ```
 
 The completed program prints:
@@ -51,8 +51,8 @@ For an empty ledger, print just `Inventory:`. Error wording is flexible, but the
 From this directory, run:
 
 ```sh
-cargo test
-cargo run -- sample.ledger
+cargo test -p inventory-ledger
+cargo run -p inventory-ledger -- sample.ledger
 ```
 
 Also try a missing file, a missing or extra CLI argument, a sale before a delivery, and malformed input. Each must print an error and exit nonzero. The starter's `cargo test` failures at TODOs are expected.
