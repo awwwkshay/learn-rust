@@ -14,13 +14,15 @@ Use the repository's `AGENTS.md` for coaching and file conventions. This skill a
 - Select a few Rust concepts that arise naturally from that path, such as ownership and borrowing, structs and enums, `Result` and `Option`, collections, iterators, modules, or tests. Do not force unrelated concepts into the same task.
 - Inspect current repository work to avoid repeating a completed project and to calibrate difficulty. If little work is available, choose a standard-library CLI with a clear input format and small data set.
 - Keep the core milestone achievable through incremental sessions. Put extra behavior in stretch goals.
+- Prefer the standard library unless a dependency teaches a concept needed for the task.
 
 ## Scaffold without solving
 
-- Create a descriptively named Cargo project in its own directory. Its `README.md` should explain the scenario, input and output, requirements, success criteria, exact commands, and optional stretch goals.
-- Provide the types, function signatures, fixture data, and a few meaningful tests needed to make the first steps clear. Use `todo!()` for substantive behavior. Leave parsing, state updates, error handling, orchestration, and formatting for the learner where those are learning goals.
-- Make test expectations consistent with the README. Check that the scaffold compiles, and state clearly if tests intentionally fail at TODOs. Avoid tests that require an unspecified output format.
+- Create a descriptively named Cargo project in its own directory. Its `README.md` should explain the scenario, requirements, success criteria, exact commands, optional stretch goals, and a representative input with the output the finished program should produce. If output is nondeterministic or its formatting is flexible, label the output as illustrative and state which parts must match.
+- Provide the types, function signatures, fixture data, and meaningful unit tests for core behavior, errors, and useful edge cases. Use `todo!()` for substantive behavior. Leave parsing, state updates, error handling, orchestration, and formatting for the learner where those are learning goals.
+- Make tests and the sample output agree with the README's required behavior. Assert exact output only when the format is specified; otherwise test required content or structure. Check that the scaffold compiles, and state clearly if tests intentionally fail at TODOs.
 - Briefly tell the learner why the project matters and which Rust concepts they will practice. Suggest a sensible implementation order without giving away the implementation.
+- If the exercise intentionally fails to compile, state the expected command and failure in the README and when presenting the task.
 
 ## Review before delivery
 

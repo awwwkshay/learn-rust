@@ -38,7 +38,7 @@ cargo test
 cargo run -- sample.log
 ```
 
-All tests should pass. The sample run should report 4 requests, status counts of 200: 2, 201: 1, and 404: 1, with `POST /users` as the slowest at 42 ms. Also try a missing file and a malformed line; both should produce a useful error and nonzero exit status.
+All tests should pass. The sample run should report 16 requests, with status counts of 200: 7, 201: 3, and one each of 204, 401, 404, 429, 500, and 503. The slowest request should be `GET /api/v1/reports/weekly` with status 503 at 1204 ms. Also try a missing file and a malformed line; both should produce a useful error and nonzero exit status.
 
 ## Optional stretch goals
 
