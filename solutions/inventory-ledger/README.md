@@ -1,6 +1,6 @@
 # Inventory ledger
 
-This is the active working copy at the repository root. The starter compiles; tests intentionally fail at the TODOs.
+This is the completed first attempt archived at `solutions/inventory-ledger/`.
 
 A small shop records deliveries and sales in a plain-text file. Build a CLI that processes the file in order and prints the stock left for each item. A sale that exceeds available stock must stop processing with a useful error.
 
@@ -25,14 +25,14 @@ Each item starts with zero stock. Items that reach zero remain in the final repo
 4. `format_inventory` produces the exact report format below, without a trailing newline.
 5. `run` and `main` read exactly one file path, print the report, or print an error to stderr and exit nonzero.
 
-The standard library is enough. This project practices enums, `Result`, mutable collections, checked arithmetic, ownership, file I/O, and testing state changes.
+This solution uses the `regex` crate for item validation. It practices enums, `Result`, mutable collections, checked arithmetic, ownership, file I/O, and testing state changes.
 
 ## Example
 
 From this directory, run:
 
 ```sh
-cargo run -p inventory-ledger -- sample.ledger
+cargo run -- sample.ledger
 ```
 
 The completed program prints:
@@ -48,14 +48,21 @@ For an empty ledger, print just `Inventory:`. Error wording is flexible, but the
 
 ## Success criteria
 
+From the repository root, run:
+
+```sh
+cargo test --manifest-path solutions/inventory-ledger/Cargo.toml
+cargo run --manifest-path solutions/inventory-ledger/Cargo.toml -- solutions/inventory-ledger/sample.ledger
+```
+
 From this directory, run:
 
 ```sh
-cargo test -p inventory-ledger
-cargo run -p inventory-ledger -- sample.ledger
+cargo test
+cargo run -- sample.ledger
 ```
 
-Also try a missing file, a missing or extra CLI argument, a sale before a delivery, and malformed input. Each must print an error and exit nonzero. The starter's `cargo test` failures at TODOs are expected.
+Also try a missing file, a missing or extra CLI argument, a sale before a delivery, and malformed input. Each must print an error and exit nonzero.
 
 ## Optional stretch goals
 

@@ -1,8 +1,9 @@
 [workspace]
 resolver = "3"
-members = ["inventory-ledger"]
+members = []
 exclude = [
     "exercises/inventory-ledger",
     "exercises/request-log-analyzer",
+    "solutions/inventory-ledger",
     "solutions/request-log-analyzer",
 ]
