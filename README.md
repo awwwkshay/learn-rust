@@ -2,6 +2,25 @@
 
 Hands-on Rust projects. `exercises/` holds untouched starters, a project at the repository root is the active working copy while you solve it, and `solutions/` holds completed attempts.
 
+## LRU cache (active)
+
+- [Working copy](lru-cache/README.md)
+- [Untouched exercise](exercises/lru-cache/README.md)
+
+From the repository root:
+
+```sh
+cargo test -p lru-cache
+cargo run -p lru-cache
+```
+
+After `cd lru-cache`:
+
+```sh
+cargo test -p lru-cache
+cargo run -p lru-cache
+```
+
 ## Inventory ledger
 
 - [Untouched exercise](exercises/inventory-ledger/README.md)
