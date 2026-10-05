@@ -1,6 +1,6 @@
 # LRU cache
 
-This is your active working copy. The starter compiles; its tests and demo intentionally stop at `todo!()`.
+This is the completed first attempt, archived from the root working copy. Use `prepare-rust-exercise` to start another attempt from the untouched starter.
 
 An application wants to keep a small number of recently used values in memory. Build a reusable, generic **least recently used (LRU) cache**. A successful lookup makes that entry recent. When inserting into a full cache, evict the entry that has gone unused for the longest time.
 
@@ -27,15 +27,15 @@ You may change the internal representation if you preserve the public behavior. 
 From the repository root, run:
 
 ```sh
-cargo test -p lru-cache
-cargo run -p lru-cache
+cargo test --manifest-path solutions/lru-cache/Cargo.toml
+cargo run --manifest-path solutions/lru-cache/Cargo.toml
 ```
 
-After `cd lru-cache`, run:
+After `cd solutions/lru-cache`, run:
 
 ```sh
-cargo test -p lru-cache
-cargo run -p lru-cache
+cargo test
+cargo run
 ```
 
 Once complete, the demo prints:
@@ -48,7 +48,7 @@ Evicted("beta", 20)
 beta: None
 ```
 
-`cargo test` must pass. The tests cover zero capacity, borrowed values, lookup recency, replacement, eviction, and capacity one. The starter's test failures at TODOs are expected.
+`cargo test` must pass. The tests cover zero capacity, borrowed values, lookup recency, replacement, eviction, and capacity one.
 
 ## Optional stretch goals
 

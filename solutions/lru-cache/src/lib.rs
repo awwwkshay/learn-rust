@@ -18,26 +18,61 @@ pub struct LruCache<K, V> {
 impl<K: Eq + Hash + Clone, V> LruCache<K, V> {
     /// Rejects zero capacity.
     pub fn new(capacity: usize) -> Result<Self, String> {
-        todo!()
+        if capacity == 0 {
+            return Err("Capacity must be greater than zero".to_string());
+        }
+        Ok(Self {
+            capacity,
+            entries: HashMap::new(),
+            order: VecDeque::new(),
+        })
     }
 
     pub fn len(&self) -> usize {
-        todo!()
+        self.entries.len()
     }
 
     pub fn is_empty(&self) -> bool {
-        todo!()
+        self.entries.is_empty()
     }
 
     /// Returns a reference to the value and marks the key as most recently used.
     pub fn get(&mut self, key: &K) -> Option<&V> {
-        todo!()
+        let val = self.entries.get(key);
+        if val.is_some() {
+            // Move the key to the back of the order queue to mark it as most recently used
+            self.order.retain(|k| k != key);
+            self.order.push_back(key.clone());
+        }
+        val
     }
 
     /// Adds or replaces a value, marking its key as most recently used.
     /// Only a new key can evict the least recently used entry.
     pub fn insert(&mut self, key: K, value: V) -> InsertOutcome<K, V> {
-        todo!()
+        if self.entries.contains_key(&key) {
+            let old_value = self.entries.insert(key.clone(), value).unwrap();
+            // Move the key to the back of the order queue to mark it as most recently used
+            self.order.retain(|k| k != &key);
+            self.order.push_back(key);
+            return InsertOutcome::Replaced(old_value);
+        } else {
+            if self.entries.len() == self.capacity {
+                // Evict the least recently used entry
+                let lru_key = self
+                    .order
+                    .pop_front()
+                    .expect("cache order must contain every entry");
+                let lru_value = self.entries.remove(&lru_key).unwrap();
+                self.entries.insert(key.clone(), value);
+                self.order.push_back(key);
+                return InsertOutcome::Evicted(lru_key, lru_value);
+            } else {
+                self.entries.insert(key.clone(), value);
+                self.order.push_back(key);
+                return InsertOutcome::Added;
+            }
+        }
     }
 }
 
