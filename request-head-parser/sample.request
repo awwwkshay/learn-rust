@@ -1,4 +1,0 @@
-GET /orders/42 HTTP/1.1
-Host: example.test
-Accept: application/json
-X-Trace: 7f2

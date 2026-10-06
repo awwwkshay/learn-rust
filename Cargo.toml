@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["request-head-parser"]
+members = ["job-runner"]
 exclude = [
     "exercises/inventory-ledger",
     "exercises/request-log-analyzer",
