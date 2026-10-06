@@ -2,6 +2,27 @@
 
 Hands-on Rust projects. `exercises/` holds untouched starters, a project at the repository root is the active working copy while you solve it, and `solutions/` holds completed attempts.
 
+## Active exercise: request head parser
+
+- [Working copy](request-head-parser/README.md)
+- [Untouched starter](exercises/request-head-parser/README.md)
+
+From the repository root:
+
+```sh
+cargo test -p request-head-parser
+cargo run -p request-head-parser
+```
+
+After `cd request-head-parser`:
+
+```sh
+cargo test -p request-head-parser
+cargo run -p request-head-parser
+```
+
+The demo embeds `sample.request`; no path argument is needed. Tests and the demo currently stop at TODOs.
+
 ## LRU cache
 
 - [Untouched exercise](exercises/lru-cache/README.md)
