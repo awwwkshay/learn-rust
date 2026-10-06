@@ -2,6 +2,25 @@
 
 Hands-on Rust projects. `exercises/` holds untouched starters, a project at the repository root is the active working copy while you solve it, and `solutions/` holds completed attempts.
 
+## Message pipeline
+
+- [Active working copy](message-pipeline/README.md)
+- [Untouched starter](exercises/message-pipeline/README.md)
+
+From the repository root:
+
+```sh
+cargo test -p message-pipeline
+cargo run -p message-pipeline
+```
+
+After `cd message-pipeline`:
+
+```sh
+cargo test -p message-pipeline
+cargo run -p message-pipeline
+```
+
 ## Job runner
 
 - [Untouched starter](exercises/job-runner/README.md)
