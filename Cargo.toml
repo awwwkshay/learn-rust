@@ -1,10 +1,11 @@
 [workspace]
 resolver = "3"
-members = ["job-runner"]
+members = []
 exclude = [
     "exercises/inventory-ledger",
     "exercises/request-log-analyzer",
     "solutions/inventory-ledger",
     "solutions/request-log-analyzer",
     "solutions/lru-cache",
+    "solutions/job-runner",
 ]

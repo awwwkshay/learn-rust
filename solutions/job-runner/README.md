@@ -1,6 +1,6 @@
 # Job runner
 
-This is the active working copy. The untouched starter is under `exercises/job-runner/`. It compiles, but tests and the demo intentionally stop at `todo!()`.
+This is the completed first attempt, archived at `solutions/job-runner/`. The untouched starter remains under `exercises/job-runner/`.
 
 A small application needs to run different kinds of queued work in the order it arrives and record each outcome. Build a reusable, in-memory job runner. It should keep going when one job fails.
 
@@ -26,15 +26,15 @@ The supplied failure job in the tests shows how another type can implement the s
 From the repository root, run:
 
 ```sh
-cargo test -p job-runner
-cargo run -p job-runner
+cargo test --manifest-path solutions/job-runner/Cargo.toml
+cargo run --manifest-path solutions/job-runner/Cargo.toml
 ```
 
-After `cd job-runner`, run:
+After `cd solutions/job-runner`, run:
 
 ```sh
-cargo test -p job-runner
-cargo run -p job-runner
+cargo test
+cargo run
 ```
 
 The demo creates its jobs in `main`, so it needs no file-path argument.
@@ -46,7 +46,7 @@ headline: READY FOR REVIEW
 word count: 5 words
 ```
 
-The tests cover each job, an empty queue, mixed job types, failure recovery, and formatting. The starter's failures at TODOs are expected.
+The tests cover each job, an empty queue, mixed job types, failure recovery, and formatting.
 
 ## Optional stretch goals
 

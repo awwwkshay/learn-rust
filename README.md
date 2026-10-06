@@ -2,26 +2,24 @@
 
 Hands-on Rust projects. `exercises/` holds untouched starters, a project at the repository root is the active working copy while you solve it, and `solutions/` holds completed attempts.
 
-## Active exercise: job runner
+## Job runner
 
-- [Working copy](job-runner/README.md)
 - [Untouched starter](exercises/job-runner/README.md)
+- [Completed first attempt](solutions/job-runner/README.md)
 
-From the repository root:
-
-```sh
-cargo test -p job-runner
-cargo run -p job-runner
-```
-
-After `cd job-runner`:
+The root working copy has been archived. From the repository root:
 
 ```sh
-cargo test -p job-runner
-cargo run -p job-runner
+cargo test --manifest-path solutions/job-runner/Cargo.toml
+cargo run --manifest-path solutions/job-runner/Cargo.toml
 ```
 
-The demo creates its jobs in `main`; no path argument is needed. Tests and the demo currently stop at TODOs.
+After `cd solutions/job-runner`:
+
+```sh
+cargo test
+cargo run
+```
 
 ## LRU cache
 

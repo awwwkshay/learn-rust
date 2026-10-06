@@ -1,5 +1,7 @@
 use std::collections::VecDeque;
 
+use crate::RunOutcome::{Completed, Failed};
+
 /// A unit of work that can be run by the scheduler.
 pub trait Job {
     fn name(&self) -> &str;
@@ -13,11 +15,11 @@ pub struct UppercaseJob {
 
 impl Job for UppercaseJob {
     fn name(&self) -> &str {
-        todo!()
+        self.name.as_str()
     }
 
     fn run(&self) -> Result<String, String> {
-        todo!()
+        Ok(self.input.to_uppercase())
     }
 }
 
@@ -28,11 +30,11 @@ pub struct WordCountJob {
 
 impl Job for WordCountJob {
     fn name(&self) -> &str {
-        todo!()
+        self.name.as_str()
     }
 
     fn run(&self) -> Result<String, String> {
-        todo!()
+        Ok(format!("{} words", self.input.split_whitespace().count()))
     }
 }
 
@@ -54,29 +56,41 @@ pub struct Scheduler {
 
 impl Scheduler {
     pub fn new() -> Self {
-        todo!()
+        Self {
+            pending: VecDeque::new(),
+        }
     }
 
     pub fn len(&self) -> usize {
-        todo!()
+        self.pending.len()
     }
 
     pub fn is_empty(&self) -> bool {
-        todo!()
+        self.pending.is_empty()
     }
 
     pub fn enqueue(&mut self, job: Box<dyn Job>) {
-        todo!()
+        self.pending.push_back(job);
     }
 
     /// Runs one pending job, removing it from the queue even if it fails.
     pub fn run_next(&mut self) -> Option<RunReport> {
-        todo!()
+        self.pending.pop_front().map(|job| RunReport {
+            name: job.name().to_string(),
+            outcome: match job.run() {
+                Err(err) => RunOutcome::Failed(err),
+                Ok(res) => RunOutcome::Completed(res),
+            },
+        })
     }
 
     /// Drains the queue in FIFO order and keeps running after a failed job.
     pub fn run_all(&mut self) -> Vec<RunReport> {
-        todo!()
+        let mut reports: Vec<RunReport> = Vec::new();
+        while let Some(report) = self.run_next() {
+            reports.push(report);
+        }
+        reports
     }
 }
 
@@ -88,7 +102,15 @@ impl Default for Scheduler {
 
 /// Formats one report per line, without a trailing newline.
 pub fn format_reports(reports: &[RunReport]) -> String {
-    todo!()
+    let mut formatted_reports = Vec::with_capacity(reports.len());
+    for report in reports {
+        let line = match &report.outcome {
+            Failed(err) => format!("{}: ERROR {}", report.name, err),
+            Completed(outcome) => format!("{}: {}", report.name, outcome),
+        };
+        formatted_reports.push(line);
+    }
+    formatted_reports.join("\n")
 }
 
 #[cfg(test)]
@@ -193,6 +215,32 @@ mod tests {
                 outcome: RunOutcome::Completed("STILL RUNS".into()),
             })
         );
+    }
+
+    #[test]
+    fn run_all_drains_after_failure() {
+        let mut scheduler = Scheduler::new();
+        scheduler.enqueue(Box::new(FailingJob));
+        scheduler.enqueue(Box::new(UppercaseJob {
+            name: "later".into(),
+            input: "still runs".into(),
+        }));
+
+        assert_eq!(
+            scheduler.run_all(),
+            vec![
+                RunReport {
+                    name: "unavailable".into(),
+                    outcome: RunOutcome::Failed("service offline".into()),
+                },
+                RunReport {
+                    name: "later".into(),
+                    outcome: RunOutcome::Completed("STILL RUNS".into()),
+                },
+            ]
+        );
+        assert!(scheduler.is_empty());
+        assert!(scheduler.run_all().is_empty());
     }
 
     #[test]
