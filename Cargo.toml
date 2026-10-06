@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["message-pipeline"]
+members = []
 exclude = [
     "exercises/inventory-ledger",
     "exercises/request-log-analyzer",
@@ -8,4 +8,5 @@ exclude = [
     "solutions/request-log-analyzer",
     "solutions/lru-cache",
     "solutions/job-runner",
+    "solutions/message-pipeline",
 ]

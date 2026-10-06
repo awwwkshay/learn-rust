@@ -1,6 +1,6 @@
 # Message pipeline
 
-This is the active working copy. The crate compiles; its tests and demo intentionally stop at `todo!()`.
+This is the completed first attempt, archived at `solutions/message-pipeline/`.
 
 An application sends messages through a series of transformations and checks before delivery. Build a reusable pipeline that applies those steps in registration order. A step can keep state between messages, such as a limit on how many it will accept.
 
@@ -25,15 +25,15 @@ The small twist is the stateful rule: a closure may reject a later message based
 From the repository root, run:
 
 ```sh
-cargo test -p message-pipeline
-cargo run -p message-pipeline
+cargo test --manifest-path solutions/message-pipeline/Cargo.toml
+cargo run --manifest-path solutions/message-pipeline/Cargo.toml
 ```
 
-After `cd message-pipeline`, run:
+After `cd solutions/message-pipeline`, run:
 
 ```sh
-cargo test -p message-pipeline
-cargo run -p message-pipeline
+cargo test
+cargo run
 ```
 
 When complete, the demo prints:
@@ -45,7 +45,7 @@ When complete, the demo prints:
 4: ERROR limit reached
 ```
 
-The starter's test failures and demo panic at TODOs are expected. The standard library is enough.
+The standard library is enough.
 
 ## Optional stretch goals
 

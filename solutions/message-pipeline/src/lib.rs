@@ -7,11 +7,11 @@ pub struct Pipeline {
 
 impl Pipeline {
     pub fn new() -> Self {
-        todo!()
+        Pipeline { steps: Vec::new() }
     }
 
     pub fn step_count(&self) -> usize {
-        todo!()
+        self.steps.len()
     }
 
     /// Stores a closure that may mutate its captured state between messages.
@@ -19,17 +19,31 @@ impl Pipeline {
     where
         F: FnMut(String) -> Result<String, String> + 'static,
     {
-        todo!()
+        self.steps.push(Box::new(step));
     }
 
     /// Stops at the first error for this message; earlier step state is retained.
     pub fn process(&mut self, message: String) -> Result<String, String> {
-        todo!()
+        let mut next_message = message;
+        for step in &mut self.steps {
+            let step_res = step(next_message);
+            match step_res {
+                Err(err) => {
+                    return Err(err);
+                }
+                Ok(res_message) => next_message = res_message,
+            }
+        }
+        return Ok(next_message);
     }
 
     /// Processes every message in order, including those after a failure.
     pub fn process_batch(&mut self, messages: Vec<String>) -> Vec<Result<String, String>> {
-        todo!()
+        let mut results = Vec::new();
+        for message in messages {
+            results.push(self.process(message));
+        }
+        return results;
     }
 }
 

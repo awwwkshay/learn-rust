@@ -4,21 +4,21 @@ Hands-on Rust projects. `exercises/` holds untouched starters, a project at the 
 
 ## Message pipeline
 
-- [Active working copy](message-pipeline/README.md)
+- [Completed first attempt](solutions/message-pipeline/README.md)
 - [Untouched starter](exercises/message-pipeline/README.md)
 
-From the repository root:
+The root working copy has been archived. From the repository root:
 
 ```sh
-cargo test -p message-pipeline
-cargo run -p message-pipeline
+cargo test --manifest-path solutions/message-pipeline/Cargo.toml
+cargo run --manifest-path solutions/message-pipeline/Cargo.toml
 ```
 
-After `cd message-pipeline`:
+After `cd solutions/message-pipeline`:
 
 ```sh
-cargo test -p message-pipeline
-cargo run -p message-pipeline
+cargo test
+cargo run
 ```
 
 ## Job runner
