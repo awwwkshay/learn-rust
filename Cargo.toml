@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = []
+members = ["event-feed"]
 exclude = [
     "exercises/inventory-ledger",
     "exercises/request-log-analyzer",

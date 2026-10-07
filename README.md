@@ -2,6 +2,25 @@
 
 Hands-on Rust projects. `exercises/` holds untouched starters, a project at the repository root is the active working copy while you solve it, and `solutions/` holds completed attempts.
 
+## Current exercise: Event feed
+
+- [Working copy](event-feed/README.md)
+- [Untouched starter](exercises/event-feed/README.md)
+
+From the repository root:
+
+```sh
+cargo test -p event-feed
+cargo run -p event-feed
+```
+
+Or after `cd event-feed`:
+
+```sh
+cargo test -p event-feed
+cargo run -p event-feed
+```
+
 ## Message pipeline
 
 - [Completed first attempt](solutions/message-pipeline/README.md)
