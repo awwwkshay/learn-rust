@@ -18,7 +18,20 @@ impl EventFeed {
     /// Rejects either input if a timestamp is smaller than the one before it.
     /// Equal timestamps within one input are valid.
     pub fn new(primary: Vec<Event>, secondary: Vec<Event>) -> Result<Self, String> {
-        todo!()
+        for (index, window) in primary.windows(2).enumerate() {
+            if window[1].timestamp < window[0].timestamp {
+                return Err(format!("primary event {} is out of order", index + 2));
+            }
+        }
+        for (index, window) in secondary.windows(2).enumerate() {
+            if window[1].timestamp < window[0].timestamp {
+                return Err(format!("secondary event {} is out of order", index + 2));
+            }
+        }
+        Ok(EventFeed {
+            primary: primary.into_iter().peekable(),
+            secondary: secondary.into_iter().peekable(),
+        })
     }
 }
 
@@ -27,7 +40,18 @@ impl Iterator for EventFeed {
 
     /// On a tie, yields the primary event first. Keeps each input's order.
     fn next(&mut self) -> Option<Self::Item> {
-        todo!()
+        match (self.primary.peek(), self.secondary.peek()) {
+            (None, None) => None,
+            (Some(_), None) => self.primary.next(),
+            (None, Some(_)) => self.secondary.next(),
+            (Some(pe), Some(se)) => {
+                if se.timestamp < pe.timestamp {
+                    return self.secondary.next();
+                } else {
+                    return self.primary.next();
+                }
+            }
+        }
     }
 }
 

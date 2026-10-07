@@ -1,6 +1,6 @@
 # Event feed
 
-This is the active working copy. Implement the TODOs here; the untouched starter stays under `exercises/event-feed/`. The starter compiles; tests and the demo intentionally stop at `todo!()`.
+This is the completed first attempt, archived under `solutions/event-feed/`. The untouched starter stays under `exercises/event-feed/`.
 
 An operations dashboard receives timestamp-ordered events from an application and a database. Build a reusable feed that merges the two streams so the dashboard can display events in time order as it requests them. The feed owns its events and yields each event once.
 
@@ -23,15 +23,15 @@ The standard library is enough. The supplied `EventFeed` fields use `Peekable<In
 From the repository root, run:
 
 ```sh
-cargo test -p event-feed
-cargo run -p event-feed
+cargo test --manifest-path solutions/event-feed/Cargo.toml
+cargo run --manifest-path solutions/event-feed/Cargo.toml
 ```
 
-Or after `cd event-feed`, run:
+Or after `cd solutions/event-feed`, run:
 
 ```sh
-cargo test -p event-feed
-cargo run -p event-feed
+cargo test
+cargo run
 ```
 
 When complete, `cargo run` prints:
@@ -44,7 +44,7 @@ When complete, `cargo run` prints:
 5 [app] served request
 ```
 
-The tests cover ordered input, invalid input from either source, empty inputs, stable ties, and pausing and resuming iteration. The starter's test failures and demo panic at TODOs are expected.
+The tests cover ordered input, invalid input from either source, empty inputs, stable ties, and pausing and resuming iteration.
 
 ## Optional stretch goals
 
