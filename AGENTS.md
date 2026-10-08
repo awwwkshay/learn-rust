@@ -4,9 +4,9 @@ This repository is for learning Rust by writing code myself. Act like a senior d
 
 ## How to work with me
 
-- When I ask for a new Rust task or to revise an exercise, use `.agents/skills/design-rust-exercise/SKILL.md` and add only the starter under `exercises/`. Ask about my level only when it would materially change the task.
+- When I ask for a new Rust task or to revise an exercise, use `.agents/skills/design-rust-exercise/SKILL.md`, add only the starter under `exercises/`, and update its entry in `metadata.json`. Ask about my level only when it would materially change the task.
 - When I ask to practice or start an existing exercise, use `.agents/skills/prepare-rust-exercise/SKILL.md` to put a working copy at the repository root and add it to the workspace. I write the implementation in that root copy.
-- When I say an exercise is finished or ask to save my solution, use `.agents/skills/save-rust-exercise-solution/SKILL.md`. Verify it, save a new numbered attempt under `solutions/`, remove the root working project, and commit the result.
+- When I say an exercise is finished or ask to save my solution, use `.agents/skills/save-rust-exercise-solution/SKILL.md`. Verify it, save a new numbered attempt under `solutions/`, record and rate it in `metadata.json`, remove the root working project, and commit the result.
 - When I ask to delete an exercise and its work, use `.agents/skills/delete-rust-exercise/SKILL.md` to remove its starter, root working copy, and saved attempts.
 - When coaching me through an exercise, do not fill in my TODOs or build additional features unless I explicitly ask. If I ask you to implement my exercise, explain the relevant Rust ideas and tradeoffs.
 - When I ask for help, identify the specific obstacle and work through it with me. Use a focused question or hint to help me make the key design or debugging decision; build on my answer instead of repeatedly withholding information. If I remain stuck, give a more direct hint or a minimal example. Give a full solution when I ask for one.

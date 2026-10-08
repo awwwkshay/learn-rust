@@ -1,115 +1,41 @@
 # Learn Rust
 
-Hands-on Rust projects. `exercises/` holds untouched starters, a project at the repository root is the active working copy while you solve it, and `solutions/` holds completed attempts.
+This repository is for learning Rust by building small projects yourself. Each exercise has a starter, tests, and a README that describes the behavior to implement.
 
-## Current exercise: Equipment desk
+## What you need
 
-- [Working copy](equipment-desk/README.md)
-- [Untouched starter](exercises/equipment-desk/README.md)
+- A Rust toolchain with `cargo` available in your terminal.
+- A coding assistant that can work with this repository, such as Codex or Claude, to prepare exercises and coach you when you get stuck.
+- A willingness to write the Rust implementation yourself, run tests, and learn from compiler errors.
 
-From the repository root:
+## How the repository works
 
-```sh
-cargo test -p equipment-desk
-cargo run -p equipment-desk
-```
+- [metadata.json](metadata.json) lists the recommended solving order, difficulty, topics, and saved solution attempts.
+- `exercises/` contains untouched starters. Leave these as a reference.
+- A project directory at the repository root is your active working copy. Write your solution there.
+- `solutions/` contains archived attempts. You can solve an exercise again without replacing an earlier attempt.
 
-Or after `cd equipment-desk`:
+## Reading `metadata.json`
 
-```sh
-cargo test -p equipment-desk
-cargo run -p equipment-desk
-```
+The `exercises` array is in recommended solving order. Each entry describes one untouched starter:
 
-## Event feed
+| Field | Meaning |
+| --- | --- |
+| `slug` | Directory name under `exercises/`; use it when asking your assistant to prepare an exercise. |
+| `path` | Location of the untouched starter directory, relative to this repository's root. |
+| `title` and `description` | The exercise name and a short summary of what you will build. |
+| `topics` | Rust concepts the exercise is designed to practice. |
+| `difficulty` | Estimated difficulty of the required exercise, from 1 (small beginner task) to 10 (large, involved task). |
+| `solutions` | Saved attempts for that exercise, in the order they were archived. An empty array means no attempt has been saved yet. |
 
-- [Completed first attempt](solutions/event-feed/README.md)
-- [Untouched starter](exercises/event-feed/README.md)
+Each object in `solutions` has a `path` to an archived attempt, relative to this repository's root, and a `rating` from 1 to 10 for how well that attempt meets the requirements and uses Rust. **Difficulty rates the exercise; rating assesses a particular saved solution.**
 
-The root working copy has been archived. From the repository root:
+## Practice loop
 
-```sh
-cargo test --manifest-path solutions/event-feed/Cargo.toml
-cargo run --manifest-path solutions/event-feed/Cargo.toml
-```
+1. Choose an exercise from [metadata.json](metadata.json), then ask your assistant to prepare it.
+2. Read the active project's README for requirements, examples, and its exact test and run commands.
+3. Implement the TODOs in the root working copy. Run the tests often and use compiler errors as clues.
+4. When you need help, share the specific error or decision you are facing. Ask for a hint, a review, or a full explanation at the level you want.
+5. When the exercise is finished, ask your assistant to save the solution. It will verify the work, archive a new attempt, and update the metadata.
 
-Or after `cd solutions/event-feed`:
-
-```sh
-cargo test
-cargo run
-```
-
-## Message pipeline
-
-- [Completed first attempt](solutions/message-pipeline/README.md)
-- [Untouched starter](exercises/message-pipeline/README.md)
-
-The root working copy has been archived. From the repository root:
-
-```sh
-cargo test --manifest-path solutions/message-pipeline/Cargo.toml
-cargo run --manifest-path solutions/message-pipeline/Cargo.toml
-```
-
-After `cd solutions/message-pipeline`:
-
-```sh
-cargo test
-cargo run
-```
-
-## Job runner
-
-- [Untouched starter](exercises/job-runner/README.md)
-- [Completed first attempt](solutions/job-runner/README.md)
-
-The root working copy has been archived. From the repository root:
-
-```sh
-cargo test --manifest-path solutions/job-runner/Cargo.toml
-cargo run --manifest-path solutions/job-runner/Cargo.toml
-```
-
-After `cd solutions/job-runner`:
-
-```sh
-cargo test
-cargo run
-```
-
-## LRU cache
-
-- [Untouched exercise](exercises/lru-cache/README.md)
-- [Completed first attempt](solutions/lru-cache/README.md)
-
-The root working copy has been archived. To test and run the completed attempt from the repository root:
-
-```sh
-cargo test --manifest-path solutions/lru-cache/Cargo.toml
-cargo run --manifest-path solutions/lru-cache/Cargo.toml
-```
-
-## Inventory ledger
-
-- [Untouched exercise](exercises/inventory-ledger/README.md)
-- [Completed first attempt](solutions/inventory-ledger/README.md)
-
-The root working copy has been archived. To test and run the completed attempt from the repository root:
-
-```sh
-cargo test --manifest-path solutions/inventory-ledger/Cargo.toml
-cargo run --manifest-path solutions/inventory-ledger/Cargo.toml -- solutions/inventory-ledger/sample.ledger
-```
-
-## Request log analyzer
-
-- [Untouched exercise](exercises/request-log-analyzer/README.md)
-- [Completed first attempt](solutions/request-log-analyzer/README.md)
-
-The root working copy has been removed. Use `prepare-rust-exercise` to start another attempt. To test and run the completed attempt from the repository root:
-
-```sh
-cargo test --manifest-path solutions/request-log-analyzer/Cargo.toml
-cargo run --manifest-path solutions/request-log-analyzer/Cargo.toml -- solutions/request-log-analyzer/sample.log
-```
+The goal is to practice reasoning about Rust, not just to make the tests pass. Try to explain why your ownership and error-handling choices work before moving on.

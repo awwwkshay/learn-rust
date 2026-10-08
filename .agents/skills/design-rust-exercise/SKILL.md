@@ -1,11 +1,11 @@
 ---
 name: design-rust-exercise
-description: Design or revise a hands-on Rust exercise in this repository and save its untouched starter under exercises/. Do not prepare the root working copy or archive a solution.
+description: Design or revise a hands-on Rust exercise, save its untouched starter under exercises/, and maintain root metadata.json. Do not prepare the root working copy or archive a solution.
 ---
 
 # Design a Rust exercise
 
-Use the repository's `AGENTS.md` for coaching and file conventions. This skill creates only `exercises/<project>/`.
+Use the repository's `AGENTS.md` for coaching and file conventions. This skill creates an untouched starter under `exercises/<project>/` and maintains the root `metadata.json`. Do not prepare a root working copy or archive a solution.
 
 ## Learn from prior work
 
@@ -36,8 +36,16 @@ Use the repository's `AGENTS.md` for coaching and file conventions. This skill c
 - In the README and delivery message, briefly connect the new challenge to prior completed work and identify the main new concept. Keep the learner's TODOs and design decisions for them to solve.
 - If the exercise intentionally fails to compile, state the expected command and failure in the README and when presenting the task.
 
+## Maintain exercise metadata
+
+- Update the root `metadata.json` whenever you create or revise an exercise. It contains one `exercises` array in recommended solving order. Each entry has a unique `slug`, a root-relative `path` set to `exercises/<slug>`, a human-readable `title`, a short `description` of the project, a `topics` array naming the Rust concepts the learner will practice, an integer `difficulty` from 1 to 10, and a `solutions` array.
+- Assign `difficulty` from the required core work, not optional stretch goals: 1 means a small beginner exercise and 10 means a large exercise with several interacting Rust concepts and state rules. For a new exercise, initialize `solutions` to `[]`; when revising one, preserve every existing solution object.
+- For a new exercise, insert one entry at the appropriate point in the learning sequence; usually this is after the exercise it builds on. For a revision, update its existing entry rather than creating a duplicate. Keep descriptions and topics consistent with the exercise README and the actual starter.
+- Preserve other entries and their order unless the learning sequence itself needs to change. Do not store active or completed status here; those change when exercises are prepared or saved.
+- Validate that `metadata.json` is valid JSON, every starter has exactly one entry, each `path` equals `exercises/<slug>` and points to an existing starter, every difficulty is an integer from 1 to 10, and existing solution paths and ratings are preserved before committing.
+
 ## Review before delivery
 
 Check that finishing the core task produces a usable tool or component, each requirement has a way to verify it, and the learner must make meaningful programming decisions. Remove incidental setup and dependencies that do not teach the chosen concepts.
 
-Commit only the exercise and directly necessary repository metadata after validation. Do not stage unrelated changes. Report the commit hash and how to invoke `prepare-rust-exercise` next.
+Commit only the exercise, its metadata update, and directly necessary repository changes after validation. Do not stage unrelated changes. Report the commit hash and how to invoke `prepare-rust-exercise` next.
