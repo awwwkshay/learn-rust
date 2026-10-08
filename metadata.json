@@ -3,75 +3,148 @@
     {
       "slug": "request-log-analyzer",
       "path": "exercises/request-log-analyzer",
+      "timestamp": "2026-10-03T07:40:07Z",
       "title": "Request log analyzer",
       "description": "Build a command-line tool that parses web request logs and reports status counts and the slowest request.",
-      "topics": ["structs", "Result and error propagation", "Option", "BTreeMap", "file I/O and CLI arguments"],
+      "topics": [
+        "structs",
+        "Result and error propagation",
+        "Option",
+        "BTreeMap",
+        "file I/O and CLI arguments"
+      ],
       "difficulty": 3,
       "solutions": [
-        { "path": "solutions/request-log-analyzer", "rating": 7 }
+        {
+          "path": "solutions/request-log-analyzer",
+          "timestamp": "2026-10-03T07:40:07Z",
+          "rating": 7
+        }
       ]
     },
     {
       "slug": "inventory-ledger",
       "path": "exercises/inventory-ledger",
+      "timestamp": "2026-10-03T08:40:37Z",
       "title": "Inventory ledger",
       "description": "Process deliveries and sales in order, rejecting invalid stock changes and reporting the final inventory.",
-      "topics": ["enums", "mutable collections", "Result", "checked arithmetic", "state transitions"],
+      "topics": [
+        "enums",
+        "mutable collections",
+        "Result",
+        "checked arithmetic",
+        "state transitions"
+      ],
       "difficulty": 4,
       "solutions": [
-        { "path": "solutions/inventory-ledger", "rating": 7 }
+        {
+          "path": "solutions/inventory-ledger",
+          "timestamp": "2026-10-03T15:50:04Z",
+          "rating": 7
+        }
       ]
     },
     {
       "slug": "lru-cache",
       "path": "exercises/lru-cache",
+      "timestamp": "2026-10-03T15:53:34Z",
       "title": "LRU cache",
       "description": "Build a reusable cache that updates recency on access and evicts the least recently used entry at capacity.",
-      "topics": ["generics and trait bounds", "ownership and borrowing", "HashMap", "VecDeque", "collection invariants"],
+      "topics": [
+        "generics and trait bounds",
+        "ownership and borrowing",
+        "HashMap",
+        "VecDeque",
+        "collection invariants"
+      ],
       "difficulty": 6,
       "solutions": [
-        { "path": "solutions/lru-cache", "rating": 7 }
+        {
+          "path": "solutions/lru-cache",
+          "timestamp": "2026-10-05T06:01:37Z",
+          "rating": 7
+        }
       ]
     },
     {
       "slug": "job-runner",
       "path": "exercises/job-runner",
+      "timestamp": "2026-10-06T04:53:03Z",
       "title": "Job runner",
       "description": "Queue different kinds of jobs, run them in order, and record successes and failures without stopping the queue.",
-      "topics": ["traits", "trait objects", "Box", "VecDeque", "ownership of queued values"],
+      "topics": [
+        "traits",
+        "trait objects",
+        "Box",
+        "VecDeque",
+        "ownership of queued values"
+      ],
       "difficulty": 6,
       "solutions": [
-        { "path": "solutions/job-runner", "rating": 8 }
+        {
+          "path": "solutions/job-runner",
+          "timestamp": "2026-10-06T05:58:19Z",
+          "rating": 8
+        }
       ]
     },
     {
       "slug": "message-pipeline",
       "path": "exercises/message-pipeline",
+      "timestamp": "2026-10-06T06:04:13Z",
       "title": "Message pipeline",
       "description": "Build a reusable pipeline of transformations and checks whose steps can keep state across messages.",
-      "topics": ["FnMut closures", "captured mutable state", "trait objects", "Result", "ownership through stages"],
+      "topics": [
+        "FnMut closures",
+        "captured mutable state",
+        "trait objects",
+        "Result",
+        "ownership through stages"
+      ],
       "difficulty": 7,
       "solutions": [
-        { "path": "solutions/message-pipeline", "rating": 8 }
+        {
+          "path": "solutions/message-pipeline",
+          "timestamp": "2026-10-06T18:46:55Z",
+          "rating": 8
+        }
       ]
     },
     {
       "slug": "event-feed",
       "path": "exercises/event-feed",
+      "timestamp": "2026-10-07T06:15:40Z",
       "title": "Event feed",
       "description": "Merge two ordered event streams lazily while preserving input order and handling timestamp ties.",
-      "topics": ["implementing Iterator", "Peekable", "IntoIter", "owned values", "input validation"],
+      "topics": [
+        "implementing Iterator",
+        "Peekable",
+        "IntoIter",
+        "owned values",
+        "input validation"
+      ],
       "difficulty": 7,
       "solutions": [
-        { "path": "solutions/event-feed", "rating": 8 }
+        {
+          "path": "solutions/event-feed",
+          "timestamp": "2026-10-07T08:03:15Z",
+          "rating": 8
+        }
       ]
     },
     {
       "slug": "equipment-desk",
       "path": "exercises/equipment-desk",
+      "timestamp": "2026-10-08T04:17:25Z",
       "title": "Equipment desk",
       "description": "Manage equipment loans, waitlists, returns, cancellations, and new stock while keeping shared state consistent.",
-      "topics": ["BTreeMap and BTreeSet", "VecDeque", "mutable borrowing", "typed error enums", "state invariants"],
+      "topics": [
+        "BTreeMap and BTreeSet",
+        "VecDeque",
+        "mutable borrowing",
+        "typed error enums",
+        "state invariants"
+      ],
       "difficulty": 8,
       "solutions": []
     }

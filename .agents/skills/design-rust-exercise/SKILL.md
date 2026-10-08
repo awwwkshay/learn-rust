@@ -38,11 +38,12 @@ Use the repository's `AGENTS.md` for coaching and file conventions. This skill c
 
 ## Maintain exercise metadata
 
-- Update the root `metadata.json` whenever you create or revise an exercise. It contains one `exercises` array in recommended solving order. Each entry has a unique `slug`, a root-relative `path` set to `exercises/<slug>`, a human-readable `title`, a short `description` of the project, a `topics` array naming the Rust concepts the learner will practice, an integer `difficulty` from 1 to 10, and a `solutions` array.
+- Update the root `metadata.json` whenever you create or revise an exercise. It contains one `exercises` array in recommended solving order. Each entry has a unique `slug`, a root-relative `path` set to `exercises/<slug>`, a `timestamp` in UTC ISO 8601 format (`YYYY-MM-DDTHH:MM:SSZ`), a human-readable `title`, a short `description` of the project, a `topics` array naming the Rust concepts the learner will practice, an integer `difficulty` from 1 to 10, and a `solutions` array.
+- Set a new exercise's `timestamp` to the current UTC time when its starter is created. Treat it as a creation timestamp: preserve it when revising that exercise. Do not copy a local-time offset into the metadata.
 - Assign `difficulty` from the required core work, not optional stretch goals: 1 means a small beginner exercise and 10 means a large exercise with several interacting Rust concepts and state rules. For a new exercise, initialize `solutions` to `[]`; when revising one, preserve every existing solution object.
 - For a new exercise, insert one entry at the appropriate point in the learning sequence; usually this is after the exercise it builds on. For a revision, update its existing entry rather than creating a duplicate. Keep descriptions and topics consistent with the exercise README and the actual starter.
 - Preserve other entries and their order unless the learning sequence itself needs to change. Do not store active or completed status here; those change when exercises are prepared or saved.
-- Validate that `metadata.json` is valid JSON, every starter has exactly one entry, each `path` equals `exercises/<slug>` and points to an existing starter, every difficulty is an integer from 1 to 10, and existing solution paths and ratings are preserved before committing.
+- Validate that `metadata.json` is valid JSON, every starter has exactly one entry, each `path` equals `exercises/<slug>` and points to an existing starter, timestamps use UTC ISO 8601 format, every difficulty is an integer from 1 to 10, and existing solution objects are preserved before committing.
 
 ## Review before delivery
 
