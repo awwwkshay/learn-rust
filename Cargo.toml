@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = []
+members = ["equipment-desk"]
 exclude = [
     "solutions/event-feed",
     "exercises/inventory-ledger",

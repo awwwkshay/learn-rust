@@ -2,6 +2,25 @@
 
 Hands-on Rust projects. `exercises/` holds untouched starters, a project at the repository root is the active working copy while you solve it, and `solutions/` holds completed attempts.
 
+## Current exercise: Equipment desk
+
+- [Working copy](equipment-desk/README.md)
+- [Untouched starter](exercises/equipment-desk/README.md)
+
+From the repository root:
+
+```sh
+cargo test -p equipment-desk
+cargo run -p equipment-desk
+```
+
+Or after `cd equipment-desk`:
+
+```sh
+cargo test -p equipment-desk
+cargo run -p equipment-desk
+```
+
 ## Event feed
 
 - [Completed first attempt](solutions/event-feed/README.md)
