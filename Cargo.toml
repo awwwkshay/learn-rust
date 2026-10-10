@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = []
+members = ["parallel-file-audit"]
 exclude = [
     "solutions/equipment-desk",
     "solutions/event-feed",
