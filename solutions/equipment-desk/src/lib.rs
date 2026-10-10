@@ -54,33 +54,137 @@ impl EquipmentDesk {
 
     /// Registers a new tool with a positive number of copies.
     pub fn add_tool(&mut self, name: &str, copies: u32) -> Result<(), DeskError> {
-        todo!()
+        if name.trim().is_empty() {
+            return Err(DeskError::InvalidToolName);
+        }
+        if self.tools.contains_key(name) {
+            return Err(DeskError::ToolExists(name.to_string()));
+        }
+        if copies == 0 {
+            return Err(DeskError::InvalidCopies);
+        }
+        self.tools.insert(
+            name.to_string(),
+            ToolRecord {
+                total_copies: copies,
+                borrowers: BTreeSet::new(),
+                waitlist: VecDeque::new(),
+            },
+        );
+        Ok(())
     }
 
     /// Loans a copy immediately, or places the borrower at the end of the waitlist.
     pub fn checkout(&mut self, tool: &str, borrower: &str) -> Result<CheckoutOutcome, DeskError> {
-        todo!()
+        let found_tool = self
+            .tools
+            .get_mut(tool)
+            .ok_or_else(|| DeskError::UnknownTool(tool.to_string()))?;
+        if borrower.trim().is_empty() {
+            return Err(DeskError::InvalidBorrower);
+        }
+        if found_tool.borrowers.contains(borrower)
+            || found_tool.waitlist.iter().any(|name| name == borrower)
+        {
+            return Err(DeskError::AlreadyRegistered(borrower.to_string()));
+        }
+        if (found_tool.total_copies - found_tool.borrowers.len() as u32) > 0 {
+            found_tool.borrowers.insert(borrower.to_string());
+            return Ok(CheckoutOutcome::Loaned);
+        } else {
+            found_tool.waitlist.push_back(borrower.to_string());
+            return Ok(CheckoutOutcome::Waitlisted {
+                position: found_tool.waitlist.len(),
+            });
+        }
     }
 
     /// Returns a loan and immediately assigns its copy to the first waiting borrower, if any.
     pub fn return_tool(&mut self, tool: &str, borrower: &str) -> Result<ReturnOutcome, DeskError> {
-        todo!()
+        if borrower.trim().is_empty() {
+            return Err(DeskError::InvalidBorrower);
+        }
+        let record = self
+            .tools
+            .get_mut(tool)
+            .ok_or_else(|| DeskError::UnknownTool(tool.to_string()))?;
+        if !record.borrowers.contains(borrower) {
+            return Err(DeskError::NotBorrowed(borrower.to_string()));
+        } else {
+            record.borrowers.remove(borrower);
+            if let Some(waitlisted) = record.waitlist.pop_front() {
+                record.borrowers.insert(waitlisted.clone());
+                return Ok(ReturnOutcome::AssignedTo(waitlisted));
+            } else {
+                return Ok(ReturnOutcome::Available);
+            }
+        }
     }
 
     /// Removes a borrower from this tool's waitlist without changing any loans.
     pub fn cancel_wait(&mut self, tool: &str, borrower: &str) -> Result<(), DeskError> {
-        todo!()
+        if borrower.trim().is_empty() {
+            return Err(DeskError::InvalidBorrower);
+        }
+        let record = self
+            .tools
+            .get_mut(tool)
+            .ok_or_else(|| DeskError::UnknownTool(tool.to_string()))?;
+        let position = record.waitlist.iter().position(|name| name == borrower);
+        match position {
+            None => Err(DeskError::NotWaiting(borrower.to_string())),
+            Some(pos) => {
+                record.waitlist.remove(pos);
+                return Ok(());
+            }
+        }
     }
 
     /// Adds copies and immediately assigns as many waiting borrowers as possible.
     /// Returns their names in assignment order.
     pub fn add_copies(&mut self, tool: &str, copies: u32) -> Result<Vec<String>, DeskError> {
-        todo!()
+        if copies == 0 {
+            return Err(DeskError::InvalidCopies);
+        }
+
+        let record = self
+            .tools
+            .get_mut(tool)
+            .ok_or_else(|| DeskError::UnknownTool(tool.to_string()))?;
+
+        let new_total = record
+            .total_copies
+            .checked_add(copies)
+            .ok_or_else(|| DeskError::CapacityOverflow(tool.to_string()))?;
+
+        record.total_copies = new_total;
+        let mut assigned = Vec::new();
+
+        while (record.borrowers.len() as u32) < record.total_copies {
+            let Some(name) = record.waitlist.pop_front() else {
+                break;
+            };
+
+            record.borrowers.insert(name.clone());
+            assigned.push(name);
+        }
+
+        Ok(assigned)
     }
 
     /// Returns an owned snapshot; querying does not change the desk.
     pub fn status(&self, tool: &str) -> Result<ToolStatus, DeskError> {
-        todo!()
+        let tool_record = self.tools.get(tool);
+        match tool_record {
+            None => Err(DeskError::UnknownTool(tool.to_string())),
+            Some(found_tool_record) => Ok(ToolStatus {
+                total_copies: found_tool_record.total_copies,
+                borrowers: found_tool_record.borrowers.iter().cloned().collect(),
+                available: (found_tool_record.total_copies
+                    - found_tool_record.borrowers.len() as u32),
+                waitlist: found_tool_record.waitlist.iter().cloned().collect(),
+            }),
+        }
     }
 }
 

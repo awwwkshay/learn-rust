@@ -146,7 +146,13 @@
         "state invariants"
       ],
       "difficulty": 8,
-      "solutions": []
+      "solutions": [
+        {
+          "path": "solutions/equipment-desk",
+          "timestamp": "2026-10-10T06:58:55Z",
+          "rating": 8
+        }
+      ]
     }
   ]
 }

@@ -1,6 +1,6 @@
 # Equipment desk
 
-This is the active working copy. Implement the TODOs here; the untouched starter remains under `exercises/equipment-desk/`. The crate compiles; its tests and demo intentionally stop at `todo!()`.
+This is the completed first attempt, archived under `solutions/equipment-desk/`. The untouched starter remains under `exercises/equipment-desk/`.
 
 ## The situation
 
@@ -22,7 +22,22 @@ Keep the public types and method signatures in `src/lib.rs`. You may change priv
 | `add_copies(tool, copies)` | Add a positive number of copies. Before leaving any copy available, assign free copies to waiting people in FIFO order. Return a `Vec<String>` of the people assigned by this call, in that order. Reject an unknown tool, zero copies, or a `u32` overflow. |
 | `status(tool)` | Return an owned `ToolStatus` snapshot. `available` is the number of copies without a borrower. `borrowers` is sorted by name, and `waitlist` follows arrival order. Reject an unknown tool. Calling this must not change desk state. |
 
-Use the supplied `DeskError` variants. For `ToolExists`, `UnknownTool`, and `CapacityOverflow`, include the tool name. For `AlreadyRegistered`, `NotBorrowed`, and `NotWaiting`, include the borrower name. `InvalidToolName`, `InvalidBorrower`, and `InvalidCopies` have no payload. `InvalidBorrower` applies to `checkout`, `return_tool`, and `cancel_wait`. The tests do not require a particular error precedence when a call has multiple invalid arguments.
+Use the supplied `DeskError` variants for these failures:
+
+| Operation | Failure | Error |
+| --- | --- | --- |
+| `add_tool` | Blank tool name | `InvalidToolName` |
+| `add_tool` | Zero copies | `InvalidCopies` |
+| `add_tool` | Tool already registered | `ToolExists(tool name)` |
+| `checkout`, `return_tool`, `cancel_wait` | Blank borrower name | `InvalidBorrower` |
+| Any operation that looks up a tool | Unknown tool | `UnknownTool(tool name)` |
+| `checkout` | Borrower already has a loan or waitlist entry for this tool | `AlreadyRegistered(borrower name)` |
+| `return_tool` | Borrower does not currently have a loan for this tool | `NotBorrowed(borrower name)` |
+| `cancel_wait` | Borrower is not waiting for this tool, even if they have a loan | `NotWaiting(borrower name)` |
+| `add_copies` | Zero copies | `InvalidCopies` |
+| `add_copies` | New total exceeds `u32::MAX` | `CapacityOverflow(tool name)` |
+
+The tests do not require a particular error precedence when a call has multiple invalid arguments.
 
 ## State rules
 
@@ -42,15 +57,15 @@ With one `camera` copy, Ada checks it out. Mira and Leo then join the waitlist a
 From the repository root, run:
 
 ```sh
-cargo test -p equipment-desk
-cargo run -p equipment-desk
+cargo test --manifest-path solutions/equipment-desk/Cargo.toml
+cargo run --manifest-path solutions/equipment-desk/Cargo.toml
 ```
 
-Or after `cd equipment-desk`, run:
+Or after `cd solutions/equipment-desk`, run:
 
 ```sh
-cargo test -p equipment-desk
-cargo run -p equipment-desk
+cargo test
+cargo run
 ```
 
 Once implemented, the supplied demo prints exactly:
@@ -78,7 +93,7 @@ The unit tests set up some private records directly. That lets you work on one o
 
 ## Success criteria
 
-From either directory, the documented `cargo test -p equipment-desk` command passes and `cargo run -p equipment-desk` prints the sequence above. Review the state rules as well as the tests. The starter's test failures and demo panic at TODOs are expected.
+From either directory, the documented test command passes and the run command prints the sequence above. Review the state rules as well as the tests.
 
 ## Optional stretch goals
 
