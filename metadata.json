@@ -153,6 +153,22 @@
           "rating": 8
         }
       ]
+    },
+    {
+      "slug": "parallel-file-audit",
+      "path": "exercises/parallel-file-audit",
+      "timestamp": "2026-10-10T07:46:07Z",
+      "title": "Parallel file audit",
+      "description": "Scan text files on separate threads and report counts and read failures in argument order.",
+      "topics": [
+        "thread ownership",
+        "thread::spawn and join",
+        "PathBuf",
+        "Result and nested failures",
+        "ordered aggregation"
+      ],
+      "difficulty": 6,
+      "solutions": []
     }
   ]
 }
