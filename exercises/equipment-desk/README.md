@@ -22,7 +22,22 @@ Keep the public types and method signatures in `src/lib.rs`. You may change priv
 | `add_copies(tool, copies)` | Add a positive number of copies. Before leaving any copy available, assign free copies to waiting people in FIFO order. Return a `Vec<String>` of the people assigned by this call, in that order. Reject an unknown tool, zero copies, or a `u32` overflow. |
 | `status(tool)` | Return an owned `ToolStatus` snapshot. `available` is the number of copies without a borrower. `borrowers` is sorted by name, and `waitlist` follows arrival order. Reject an unknown tool. Calling this must not change desk state. |
 
-Use the supplied `DeskError` variants. For `ToolExists`, `UnknownTool`, and `CapacityOverflow`, include the tool name. For `AlreadyRegistered`, `NotBorrowed`, and `NotWaiting`, include the borrower name. `InvalidToolName`, `InvalidBorrower`, and `InvalidCopies` have no payload. `InvalidBorrower` applies to `checkout`, `return_tool`, and `cancel_wait`. The tests do not require a particular error precedence when a call has multiple invalid arguments.
+Use the supplied `DeskError` variants for these failures:
+
+| Operation | Failure | Error |
+| --- | --- | --- |
+| `add_tool` | Blank tool name | `InvalidToolName` |
+| `add_tool` | Zero copies | `InvalidCopies` |
+| `add_tool` | Tool already registered | `ToolExists(tool name)` |
+| `checkout`, `return_tool`, `cancel_wait` | Blank borrower name | `InvalidBorrower` |
+| Any operation that looks up a tool | Unknown tool | `UnknownTool(tool name)` |
+| `checkout` | Borrower already has a loan or waitlist entry for this tool | `AlreadyRegistered(borrower name)` |
+| `return_tool` | Borrower does not currently have a loan for this tool | `NotBorrowed(borrower name)` |
+| `cancel_wait` | Borrower is not waiting for this tool, even if they have a loan | `NotWaiting(borrower name)` |
+| `add_copies` | Zero copies | `InvalidCopies` |
+| `add_copies` | New total exceeds `u32::MAX` | `CapacityOverflow(tool name)` |
+
+The tests do not require a particular error precedence when a call has multiple invalid arguments.
 
 ## State rules
 
