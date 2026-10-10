@@ -1,6 +1,6 @@
 # Parallel file audit
 
-This is your working copy at the repository root. Write your implementation here. The starter compiles; tests and the demo intentionally panic at `todo!()`.
+This is the completed first attempt, archived under `solutions/parallel-file-audit/`. The untouched starter remains under `exercises/parallel-file-audit/`.
 
 ## The situation
 
@@ -21,18 +21,18 @@ The standard library is enough. `thread::spawn(move || ...)` moves owned values 
 From the repository root, run:
 
 ```sh
-cargo test -p parallel-file-audit
-cargo run -p parallel-file-audit -- ./parallel-file-audit/fixtures/notes.txt ./parallel-file-audit/fixtures/missing.txt ./parallel-file-audit/fixtures/empty.txt
+cargo test --manifest-path solutions/parallel-file-audit/Cargo.toml
+cargo run --manifest-path solutions/parallel-file-audit/Cargo.toml -- ./solutions/parallel-file-audit/fixtures/notes.txt ./solutions/parallel-file-audit/fixtures/missing.txt ./solutions/parallel-file-audit/fixtures/empty.txt
 ```
 
-Or from inside this crate, run:
+Or after `cd solutions/parallel-file-audit`, run:
 
 ```sh
-cargo test -p parallel-file-audit
-cargo run -p parallel-file-audit -- fixtures/notes.txt fixtures/missing.txt fixtures/empty.txt
+cargo test
+cargo run -- fixtures/notes.txt fixtures/missing.txt fixtures/empty.txt
 ```
 
-When implemented, the run from inside this crate prints exactly:
+The run from inside this crate prints exactly:
 
 ```text
 fixtures/notes.txt: 33 bytes, 3 lines, 2 TODO lines
@@ -40,7 +40,7 @@ fixtures/missing.txt: read failed
 fixtures/empty.txt: 0 bytes, 0 lines, 0 TODO lines
 ```
 
-The missing file is deliberate: it shows that one failed read does not stop the audit. `fixtures/invalid-utf8.bin` exercises a second read failure in the tests. The starter's `cargo test` and demo panic at TODOs until you implement them.
+The missing file is deliberate: it shows that one failed read does not stop the audit. `fixtures/invalid-utf8.bin` exercises a second read failure in the tests.
 
 ## Suggested order
 

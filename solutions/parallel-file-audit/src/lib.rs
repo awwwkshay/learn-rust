@@ -22,19 +22,60 @@ pub struct ScanResult {
 /// Reads one UTF-8 file and counts its bytes, lines, and lines containing "TODO".
 pub fn scan_file(path: &Path) -> Result<FileCounts, ScanError> {
     let _ = path;
-    todo!()
+    let contents = std::fs::read_to_string(path).map_err(|_| ScanError::Read)?;
+    let bytes_count = contents.len();
+    let lines = contents.lines();
+    let lines_count = lines.clone().count();
+    let todo_lines_count = lines.clone().filter(|line| line.contains("TODO")).count();
+    return Ok(FileCounts {
+        bytes: bytes_count,
+        lines: lines_count,
+        todo_lines: todo_lines_count,
+    });
 }
 
 /// Scans each path on its own thread and returns one result per path in input order.
 pub fn scan_files(paths: Vec<PathBuf>) -> Vec<ScanResult> {
-    let _ = paths;
-    todo!()
+    let mut jobs = Vec::new();
+
+    // Start every scan before waiting for any result.
+    for path in paths {
+        let worker_path = path.clone();
+        let handle = std::thread::spawn(move || scan_file(&worker_path));
+        jobs.push((path, handle));
+    }
+
+    let mut results = Vec::new();
+    for (path, handle) in jobs {
+        let outcome = match handle.join() {
+            Ok(scan_outcome) => scan_outcome,
+            Err(_) => Err(ScanError::WorkerPanicked),
+        };
+        results.push(ScanResult { path, outcome });
+    }
+
+    results
 }
 
 /// Produces one line per result, in the order supplied by `results`.
 pub fn format_report(results: &[ScanResult]) -> String {
     let _ = results;
-    todo!()
+    let mut report = String::from("");
+    for sr in results {
+        let report_line = match &sr.outcome {
+            Ok(file_counts) => format!(
+                "{}: {} bytes, {} lines, {} TODO lines\n",
+                sr.path.display(),
+                file_counts.bytes,
+                file_counts.lines,
+                file_counts.todo_lines
+            ),
+            Err(ScanError::Read) => format!("{}: read failed\n", sr.path.display()),
+            Err(ScanError::WorkerPanicked) => format!("{}: worker panicked\n", sr.path.display()),
+        };
+        report.push_str(&report_line);
+    }
+    report
 }
 
 #[cfg(test)]
