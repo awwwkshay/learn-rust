@@ -175,6 +175,22 @@
           "rating": 8
         }
       ]
+    },
+    {
+      "slug": "checkout-preview",
+      "path": "exercises/checkout-preview",
+      "timestamp": "2026-10-11T03:13:43Z",
+      "title": "Checkout preview",
+      "description": "Combine independent async price and stock lookups into an order preview with clear failure outcomes.",
+      "topics": [
+        "async functions and futures",
+        "Tokio runtime and sleep",
+        "concurrent waiting with join!",
+        "Result and error priority",
+        "integer arithmetic"
+      ],
+      "difficulty": 6,
+      "solutions": []
     }
   ]
 }
