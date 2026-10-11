@@ -1,7 +1,8 @@
 [workspace]
 resolver = "3"
-members = ["checkout-preview"]
+members = []
 exclude = [
+    "solutions/checkout-preview",
     "solutions/parallel-file-audit",
     "solutions/equipment-desk",
     "solutions/event-feed",

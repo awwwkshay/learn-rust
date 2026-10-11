@@ -1,6 +1,6 @@
 # Checkout preview
 
-This is your working copy at the repository root. Write your implementation here. The starter compiles; its tests and demo intentionally stop at `todo!()`.
+This is the completed first attempt, archived under `solutions/checkout-preview/`. The untouched starter remains under `exercises/checkout-preview/`.
 
 ## The situation
 
@@ -22,24 +22,24 @@ Your parallel file audit used OS threads to do file work simultaneously. Here th
 From the repository root, run:
 
 ```sh
-cargo test -p checkout-preview
-cargo run -p checkout-preview
+cargo test --manifest-path solutions/checkout-preview/Cargo.toml
+cargo run --manifest-path solutions/checkout-preview/Cargo.toml
 ```
 
-Or after `cd checkout-preview`, run:
+Or after `cd solutions/checkout-preview`, run:
 
 ```sh
-cargo test -p checkout-preview
-cargo run -p checkout-preview
+cargo test
+cargo run
 ```
 
-Once implemented, `cargo run` prints exactly:
+`cargo run` prints exactly:
 
 ```text
 2 items at 1250 cents each; total 2500 cents; 3 left
 ```
 
-The tests cover a successful preview, zero quantity without polling sources, insufficient stock, each lookup failure, stable priority when both fail, and overlapping waits using Tokio's virtual clock. They call `preview_order` with independent test futures, so you can implement and test that function before `SimulatedSource::fetch`. The untouched starter's test failures and demo panic at TODOs are expected.
+The tests cover a successful preview, zero quantity without polling sources, insufficient stock, each lookup failure, stable priority when both fail, and overlapping waits using Tokio's virtual clock. They call `preview_order` with independent test futures, so the two functions can be tested separately.
 
 ## Suggested order
 

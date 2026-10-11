@@ -10,7 +10,8 @@ pub struct SimulatedSource {
 impl SimulatedSource {
     /// Waits without blocking a thread, then returns the configured response.
     pub async fn fetch(&self) -> Result<u32, ()> {
-        todo!()
+        tokio::time::sleep(self.delay).await;
+        return self.response;
     }
 }
 
@@ -37,7 +38,23 @@ pub async fn preview_order(
     stock: impl Future<Output = Result<u32, ()>>,
 ) -> Result<OrderPreview, PreviewError> {
     let _ = (quantity, &price, &stock);
-    todo!()
+    if quantity == 0 {
+        return Err(PreviewError::InvalidQuantity);
+    }
+    let (price_result, stock_result) = tokio::join!(price, stock);
+    let unit_price_cents = price_result.map_err(|_| PreviewError::PriceUnavailable)?;
+    let available = stock_result.map_err(|_| PreviewError::StockUnavailable)?;
+
+    if available < quantity {
+        return Err(PreviewError::OutOfStock { available });
+    }
+
+    return Ok(OrderPreview {
+        quantity: quantity,
+        remaining_stock: available - quantity,
+        unit_price_cents: unit_price_cents,
+        total_cents: u64::from(unit_price_cents) * u64::from(quantity),
+    });
 }
 
 #[cfg(test)]

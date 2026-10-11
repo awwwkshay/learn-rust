@@ -190,7 +190,13 @@
         "integer arithmetic"
       ],
       "difficulty": 6,
-      "solutions": []
+      "solutions": [
+        {
+          "path": "solutions/checkout-preview",
+          "timestamp": "2026-10-11T05:47:05Z",
+          "rating": 8
+        }
+      ]
     }
   ]
 }
