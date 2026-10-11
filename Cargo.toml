@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = []
+members = ["background-digest"]
 exclude = [
     "solutions/checkout-preview",
     "solutions/parallel-file-audit",
